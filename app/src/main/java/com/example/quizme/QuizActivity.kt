@@ -1,16 +1,19 @@
 package com.example.quizme
 
 import android.content.IntentSender.OnFinished
+import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.quizme.databinding.ActivityQuizBinding
+import com.example.quizme.databinding.ScoreDialogBinding
 
 class QuizActivity : AppCompatActivity(),View.OnClickListener {
 
@@ -18,15 +21,16 @@ class QuizActivity : AppCompatActivity(),View.OnClickListener {
         var questionModelList: List<QuestionModel> = listOf()
         var time:String=""
     }
-    var currentQuestionIndex = 0;
+    var currentQuestionIndex = 0
     var selectedAnswer=""
-    var score=0;
+    var score=0
 
 
-    lateinit var binding: ActivityQuizBinding
+   private lateinit var binding: ActivityQuizBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.apply {
             btn0.setOnClickListener(this@QuizActivity)
@@ -97,7 +101,31 @@ class QuizActivity : AppCompatActivity(),View.OnClickListener {
         }
     }
     private fun finishQuiz(){
+        val totalQuestions= questionModelList.size
+        val percentage = ((score.toFloat()/totalQuestions.toFloat())*100).toInt()
+        val dialogBinding = ScoreDialogBinding.inflate(layoutInflater)
+        dialogBinding.apply {
+            scoreProgressIndicator.progress = percentage
+            scoreProgressText.text = "$percentage %"
+            if(percentage>60){
+                scoreTitle.text = "Congrats! You have passed"
+                scoreTitle.setTextColor(Color.GREEN)
 
+
+            }else{
+                scoreTitle.text = "Oops! You have passed"
+                scoreTitle.setTextColor(Color.RED)
+
+            }
+            scoreSubtitle.text= "$score out of $totalQuestions are correct"
+            finishBtn.setOnClickListener {
+                finish()
+            }
+        }
+         AlertDialog.Builder(this)
+             .setView(dialogBinding.root)
+             .setCancelable(false)
+             .show()
 
     }
 
