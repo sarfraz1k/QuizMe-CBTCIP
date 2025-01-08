@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "536221577359",
+    "project_id": "quiz-me-f1086",
+    "storage_bucket": "quiz-me-f1086.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:536221577359:android:fc3e8aa9092a8860f700fa",
+        "android_client_info": {
+          "package_name": "com.example.quizme"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSvOnZzEnydXrvDWjSshFWsbkKwlSrYiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
